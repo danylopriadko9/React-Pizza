@@ -1,0 +1,29 @@
+.root {
+  li {
+    border: 1px solid #fe5f1e;
+    border-radius: 30px;
+    display: inline-flex;
+
+    margin-left: 10px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background-color: #fe5f1e;
+      cursor: pointer;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    a {
+      color: #fe5f1e;
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

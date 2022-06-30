@@ -9,17 +9,10 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    // addItem: (state, action) => {
-    //   state.items.push(action.payload);
-    //   state.totalPrice = state.items.reduce(
-    //     (acc, val) => (acc += val.price),
-    //     0
-    //   );
-    // },
     addItem: (state, action) => {
       const findItem = state.items.find(
         (value) =>
-          value.title === action.payload.title && //было id вместо title
+          value.title === action.payload.title &&
           value.size === action.payload.size &&
           value.type === action.payload.type
       );
@@ -82,6 +75,13 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const cartSelector = (state) => state.cart;
+
+export const cartItemByTitleSelector = (title) => (state) =>
+  state.cart.items
+    .filter((value) => value.title === title)
+    .reduce((acc, item) => (acc += item.count), 0);
 
 export const { addItem, removeItem, clearItems, plusCounter, minusCounter } =
   cartSlice.actions;

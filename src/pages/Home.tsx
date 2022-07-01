@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Sort, { categoryNames } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   filterSelector,
@@ -12,14 +11,12 @@ import {
   setCurrentPage,
   setFiltres,
 } from '../redux/slices/filterSlice';
-import axios from 'axios';
 import QueryString from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, pizzaSelector } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
-  //const { searchValue } = useContext(SearchContext);
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -31,11 +28,11 @@ const Home = () => {
 
   const sortType = sort;
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (num) => {
+  const onChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
   };
 
@@ -43,9 +40,7 @@ const Home = () => {
     <Skeleton key={index} />
   ));
 
-  const pizzas = items.map((value, index) => (
-    <PizzaBlock {...value} key={index} />
-  ));
+  const pizzas = items.map((value: any) => <PizzaBlock {...value} />);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -78,6 +73,7 @@ const Home = () => {
     const category = categoryId ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
+    //@ts-ignore
     dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
 
     window.scrollTo(0, 0);
@@ -96,7 +92,7 @@ const Home = () => {
       <div className='content__top'>
         <Categories
           value={categoryId}
-          setValue={(id) => onChangeCategory(id)}
+          setValue={(id: number) => onChangeCategory(id)}
         />
         <Sort />
       </div>

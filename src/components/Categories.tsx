@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Categories = ({ value, setValue }) => {
-  const categories = [
+type CategoriesProps = {
+  value: number;
+  setValue: any;
+};
+
+const Categories: React.FC<CategoriesProps> = ({ value, setValue }) => {
+  const categories: string[] = [
     'Все',
     'Мясные',
     'Вегетарианская',
